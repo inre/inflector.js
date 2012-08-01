@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Inflector.js Spec Runner</title>
+
+  <link rel="stylesheet" type="text/css" href="ext/jasmine.css">
+  <script src="ext/jasmine.js"></script>
+  <script src="ext/jasmine-html.js"></script>
+
+  <!-- include spec files here... -->
+  <script src="spec/inflector_spec.js"></script>
+
+  <!-- include source files here... -->
+  <script src="ext/require.min.js"></script>
+
+  <script>
+    (function() {
+      // Require.js allows us to configure shortcut alias
+      require.config({
+        baseUrl: "lib",
+      });
+
+      require(["inflector"], function() {
+
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 5000;
+
+        var trivialReporter = new jasmine.TrivialReporter();
+
+        jasmineEnv.addReporter(trivialReporter);
+
+        jasmineEnv.specFilter = function(spec) {
+          return trivialReporter.specFilter(spec);
+        };
+
+        var currentWindowOnload = window.onload;
+
+        window.onload = function() {
+          if (currentWindowOnload) {
+            currentWindowOnload();
+          }
+          execJasmine();
+        };
+
+        function execJasmine() {
+          jasmineEnv.execute();
+        }
+      });
+    })();
+  </script>
+</head>
+<body>
+</body>
+</html>
